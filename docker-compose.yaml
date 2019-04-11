@@ -7,19 +7,16 @@ services:
 
     # the name of the service is resolvable by name
     # within the same docker network
-    frontend:
-      image: insight/frontend  
+    frontend-app:
+      image: insight/frontend-app
       build: 
-        context: frontend-app
+        context: .
+        dockerfile: frontend-app/Dockerfile
       ports:
       - 5000:5000
-      depends_on: 
-        - nginx
-        - iframe-website
+      - 5001:5001
 
     iframe-website:
       image: bonomat/nodejs-hello-world 
       ports:
       - 3000:80
-      depends_on: 
-        - nginx
