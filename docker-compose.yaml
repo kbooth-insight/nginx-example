@@ -1,0 +1,25 @@
+version:  "3"
+services:
+    nginx:
+      image: nginx  
+      ports:
+      - 8888:80
+
+    # the name of the service is resolvable by name
+    # within the same docker network
+    frontend:
+      image: insight/frontend  
+      build: 
+        context: frontend-app
+      ports:
+      - 5000:5000
+      depends_on: 
+        - nginx
+        - iframe-website
+
+    iframe-website:
+      image: bonomat/nodejs-hello-world 
+      ports:
+      - 3000:80
+      depends_on: 
+        - nginx
