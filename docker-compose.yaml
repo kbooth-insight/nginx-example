@@ -1,22 +1,18 @@
 version:  "3"
 services:
     nginx:
-      image: nginx  
+      image: insight/nginx
+      build: 
+        context: nginx
       ports:
-      - 8888:80
+        - 8080:80
 
     # the name of the service is resolvable by name
     # within the same docker network
     frontend-app:
       image: insight/frontend-app
       build: 
-        context: .
-        dockerfile: frontend-app/Dockerfile
-      ports:
-      - 5000:5000
-      - 5001:5001
+        context: frontend-app
 
-    iframe-website:
+    iframe-app:
       image: bonomat/nodejs-hello-world 
-      ports:
-      - 3000:80
